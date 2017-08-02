@@ -17,6 +17,30 @@
 3. Calculate and save the max overlap area between each pair of primitive shapes.
 4. Generate the dataset from primitive shapes and max overlap area by randomly transforming primitive shapes.
 
+## How to use
+
+```bash
+pip install opencv-python, numpy, pickle, scoop
+```
+
+```bash
+git clone https://github.com/bigfacebear/MaxOverlap.git
+cd MaxOverlap
+
+# set generation parameters in gen_dataset_flags.py
+
+python -m scoop gen_dataset.py
+```
+
+Then you get a folder containing pairs of shapes and a file `OVERLAP_AREAS`. `OVERLAP_AREAS` contains the max overlap area between each pair, and you can use it as following.
+
+```python
+import pickle
+
+with open('OVERLAP_AREAS') as fp:
+    overlap_area_list = pickle.load(fp)
+```
+
 ## Primitive Shapes
 
 ​	This dataset contains 775 primitive shapes gathered from several different shape dataset:
@@ -26,15 +50,8 @@
 3. [Kimia](http://vision.lems.brown.edu/content/available-software-and-databases)
 4. [Myth, Tools](http://tosca.cs.technion.ac.il/book/resources_data.html)
 
-  ​Folder `source` contains images copied from the original dataset. Then you can run `gen_primitives.py` to generate the uniformed primitive shapes.
 
-```bash
-python gen_primitives.py
-```
-
-​	**Or you can use `filled_primitives` or `hollow_primitives` directly**. 
-
-​	Note: some of shapes in the original dataset are hollow. In `filled_primitives`, most of these holes are filled by `cv2.drawContours`. 
+​	**You can use `filled_primitives` or `hollow_primitives` directly**. 
 
 ## Calculate Max Overlap Area
 
@@ -68,19 +85,6 @@ with open('filled_max_areas') as fp:
 # The max overlap area between 0.png and 2.png is 2264
 # The max overlap area between 1.png and 2.png is 1650
 ```
-
-### Legacy
-
-​	I used to use exhaust algorithm to calculate the max overlap area. It was not only time consuming, but also imprecise. You can find the code in `legacy` folder. Here is how to use it.
-
-​	~~I use c++ instead of python to implement the core function, `max_overlap_area`. You can compile the shared library by running this script in terminal. Note: Make sure you have installed **OpenCV** and **TBB** and configured them properly.~~
-
-```bash
-cd MaxOverlap/legacy
-g++ `pkg-config --cflags opencv` ./cpp/max_overlap_area.cpp -ltbb `pkg-config --libs opencv` -fPIC -shared -o ./max_overlap_area.so
-```
-
-​	~~Then you can use the Python wrapper `gen_max_areas.py` to generate the max overlap areas file, `filled_max_areas` and `hollow_max_areas`.~~
 
 ## Generate Dataset
 
