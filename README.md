@@ -98,13 +98,15 @@ Here is how the max overlap areas gained by biased and unbiased sampling grow as
 
 ![](./misc/biased_grow.png)
 
-I choose a subset of shape pairs with size of 1000 pairs, using both biased and unbiased sampling with 24000 sample points to estimate the max overlap area. Every time estimating the max overlap area of a new pair of input shapes, a new set of 1200 * 20 = 24000 sample points will be randomly generated in unbiased sampling. As for biased sampling, evolutionary algorithm, there are 1200 sample points per generation and there are 20 generations in total. Sample points in one generation is derived from the former generation by crossover and mutation. Here is the difference between results gained by biased and unbiased sampling.
+These plots show that unbiased sampling method need a great number of sample points to stably get a precise result. But biased sampling need less sample points (calculated roughly by $generation\ number \times population$).
+
+Then I choose a subset of shape pairs with size of 1000 pairs, using both biased and unbiased sampling with 24000 sample points to estimate the max overlap area. Every time estimating the max overlap area of a new pair of input shapes, a new set of 1200 * 20 = 24000 sample points will be randomly generated in unbiased sampling. As for biased sampling, evolutionary algorithm, there are 1200 sample points per generation and there are 20 generations in total. Sample points in one generation is derived from the former generation by crossover and mutation. Here is the difference between results gained by biased and unbiased sampling.
 
 ![](./misc/bias_vs_unbias.png)
 
 The max overlap area gained by unbiased sampling is 36.33 pixels larger than biased sampling, and the max difference is up to 636.
 
-So I choose biased sampling do the continuing generation.
+In conclusion, biased sampling would be better in the continuing generation.
 
 ### The Comparison between biased sampling and ground truth
 
