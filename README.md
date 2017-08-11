@@ -92,11 +92,19 @@ with open('filled_max_areas') as fp:
 
 Evolutionary algorithm is a biased sampling, while we can also use unbiased sampling to estimate the max overlap area. But according to my experiment, biased sampling outperform unbiased sampling both in precision and efficiency.
 
-Here is how the max overlap areas gained by biased and unbiased sampling grow as sample points number change. I randomly choose 6 pairs of shapes to test. In unbiased sampling, the plot is a result of 300 independent sampling procedures each with a growing number of 10000 samples. In unbiased sampling, I increase the generation number and population number step by step to get this plot.
+Here is how the max overlap areas gained by biased and unbiased sampling grow as sample points number change. I randomly choose 6 pairs of shapes to test. 
 
 ![](./misc/unbiased_grow.png)
 
-![](./misc/biased_grow.png)
+ In unbiased sampling, the plot is a result of 300 independent sampling procedures each with a growing number of 10000 samples.
+
+![](./misc/biased_grow_generation.png)
+
+In biased sampling, the number of sample points is decided by generation number and population size. This plot shows the output max overlap area gotten by different generation number (and the population size is fixed as 1200). From this plot, the conclusion can be drawn that 20 generation is enough to generate good result.
+
+![](./misc/biased_grow_pop.png)
+
+This plot shows the relationship between max overlap area and population size in biased sampling with generation number is fixed as 20. It shows that population with size of 1200 is enough. So I pick 20 generation number and 1200 population size as parameters to generate precise results efficiently.
 
 These plots show that unbiased sampling method need a great number of sample points to stably get a precise result. But biased sampling need less sample points (calculated roughly by $generation\ number \times population$).
 
